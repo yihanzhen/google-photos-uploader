@@ -2,25 +2,19 @@ package com.hzyi.google.photos.uploader;
 
 import org.apache.commons.cli.CommandLine;
 
-public class ListAlbumApp {
+public class ListAlbumApp extends BaseApp {
   
   private static final String OPTION_DEBUG_SHORT_NAME = "d";
-  
-  private final boolean debug;
 
   public ListAlbumApp(CommandLine cl) {
-    if (cl.hasOption(OPTION_DEBUG_SHORT_NAME)) {
-      debug = true;
-    } else {
-      debug = false;
-    }
+    super(cl);
   }
 
 
 
   public void run() {
     if (debug) {
-      System.out.println("list albums");
+      System.out.println("listing albums");
     }
   }
 }
