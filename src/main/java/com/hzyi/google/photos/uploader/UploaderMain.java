@@ -20,6 +20,14 @@ public class UploaderMain {
    * <li> if a directory is not specified, use the system time to create a timestamp as the album name, plus whatever prefix given by -l and -t
    * </ul>
    */
+  static final Option OPTION_DEBUG =
+      Option.builder("d")
+          .longOpt("debug")
+          .hasArg(false)
+          .required(false)
+          .desc("print operations instead of doing the real uploads")
+          .build();
+
   static final Option OPTION_UPLOAD_ALL =
       Option.builder("a")
           .longOpt("all")
@@ -56,14 +64,6 @@ public class UploaderMain {
           .desc("change working directory to that given by this flag")
           .build();
 
-  static final Option OPTION_UPLOAD_DEBUG =
-      Option.builder("d")
-          .longOpt("debug")
-          .hasArg(false)
-          .required(false)
-          .desc("print operations instead of doing the real uploads")
-          .build();
-
   static final Option OPTION_UPLOAD_LOCATION =
       Option.builder("l")
         .longOpt("location")
@@ -96,7 +96,7 @@ public class UploaderMain {
     String goal = args[0];
     if (GOAL_UPLOAD.equals(goal)) {
       uploadMain(args);
-    } else if (GOAL_UPLOAD.equals(goal)) {
+    } else if (GOAL_LIST.equals(goal)) {
       listMain(args);
     } else {
       System.err.println("invalid goal [" + goal + "]!");
@@ -106,12 +106,12 @@ public class UploaderMain {
 
   private static void uploadMain(String[] args) throws Exception {
     Options options = new Options();
+    options.addOption(OPTION_DEBUG);
     options.addOption(OPTION_UPLOAD_ALL);
     options.addOption(OPTION_UPLOAD_APPEND);
     options.addOption(OPTION_UPLOAD_ALBUM);
     options.addOption(OPTION_UPLOAD_FILE);
     options.addOption(OPTION_UPLOAD_DIRECTORY);
-    options.addOption(OPTION_UPLOAD_DEBUG);
     options.addOption(OPTION_UPLOAD_LOCATION);
     options.addOption(OPTION_UPLOAD_TIME);
 
@@ -121,6 +121,7 @@ public class UploaderMain {
 
   private static void listMain(String[] args) throws Exception {
     Options options = new Options();
+    options.addOption(OPTION_DEBUG);
     String obj = args[1];
     if (OBJECT_LIST_ALBUM.equals(obj)) {
       CommandLine cl = (new DefaultParser()).parse(options, args);
