@@ -18,4 +18,9 @@ public class BaseApp {
     }
   }
 
+  private static PhotosLibraryClient createClient() {
+    return null;
+  }
+
+
 }
