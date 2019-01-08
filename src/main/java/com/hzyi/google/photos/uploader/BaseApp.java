@@ -1,7 +1,9 @@
 package com.hzyi.google.photos.uploader;
 
 import com.google.photos.library.v1.PhotosLibraryClient;
+import com.google.api.client.json.JsonFactory;
 import org.apache.commons.cli.CommandLine;
+
 
 public class BaseApp {
 
