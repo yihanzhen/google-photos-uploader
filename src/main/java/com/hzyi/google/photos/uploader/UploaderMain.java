@@ -1,9 +1,9 @@
 package com.hzyi.google.photos.uploader;
 
-import org.apache.commons.cli.Option;
-import org.apache.commons.cli.Options;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.Options;
 
 public class UploaderMain {
 
@@ -12,12 +12,15 @@ public class UploaderMain {
 
   private static final String OBJECT_LIST_ALBUM = "album";
   private static final String OBJECT_LIST_PHOTO = "photo";
-  
+
   /**
    * Default album name will be derived according to the following strategy:
+   *
    * <ul>
-   * <li> if a directory is specified, use the name of the directory plus whatever prefix given by -l and -t
-   * <li> if a directory is not specified, use the system time to create a timestamp as the album name, plus whatever prefix given by -l and -t
+   *   <li>if a directory is specified, use the name of the directory plus whatever prefix given by
+   *       -l and -t
+   *   <li>if a directory is not specified, use the system time to create a timestamp as the album
+   *       name, plus whatever prefix given by -l and -t
    * </ul>
    */
   static final Option OPTION_DEBUG =
@@ -54,7 +57,8 @@ public class UploaderMain {
           .longOpt("file")
           .hasArg()
           .required(false)
-          .desc("upload a certain photo. This can be an absolute path or a relative path if -d exists")
+          .desc(
+              "upload a certain photo. This can be an absolute path or a relative path if -d exists")
           .build();
   static final Option OPTION_UPLOAD_DIRECTORY =
       Option.builder("dir")
@@ -66,27 +70,27 @@ public class UploaderMain {
 
   static final Option OPTION_UPLOAD_LOCATION =
       Option.builder("l")
-        .longOpt("location")
-        .hasArg()
-        .required(false)
-        .desc("prefix the location before the album name")
-        .build();
+          .longOpt("location")
+          .hasArg()
+          .required(false)
+          .desc("prefix the location before the album name")
+          .build();
 
   static final Option OPTION_UPLOAD_TIME =
       Option.builder("t")
-        .longOpt("time")
-        .hasArg()
-        .required(false)
-        .desc("prefix the time before the album name")
-        .build();
+          .longOpt("time")
+          .hasArg()
+          .required(false)
+          .desc("prefix the time before the album name")
+          .build();
 
   static final Option OPTION_LIST_PHOTO_ALBUM =
       Option.builder("ab")
-        .longOpt("album")
-        .hasArg()
-        .required(true)
-        .desc("list all photos in this album")
-        .build();
+          .longOpt("album")
+          .hasArg()
+          .required(true)
+          .desc("list all photos in this album")
+          .build();
 
   public static void main(String[] args) throws Exception {
     if (args.length < 1) {
