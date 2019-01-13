@@ -27,7 +27,7 @@
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>27.0.1-jre</version>
+      <version>20.0</version>
     </dependency>
     <dependency>
       <groupId>com.google.photos.library</groupId>
@@ -67,12 +67,17 @@
     <dependency>
       <groupId>com.google.api</groupId>
       <artifactId>gax</artifactId>
-      <version>1.35.1</version>
+      <version>1.29.0</version>
     </dependency>
     <dependency>
       <groupId>io.grpc</groupId>
       <artifactId>grpc-netty-shaded</artifactId>
       <version>1.10.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.protobuf</groupId>
+      <artifactId>protobuf-java</artifactId>
+      <version>3.5.1</version>
     </dependency>
   </dependencies>
   <build>
@@ -83,6 +88,7 @@
         <version>1.6.0</version>
         <configuration>
           <mainClass>com.hzyi.google.photos.uploader.UploaderMain</mainClass>
+          <cleanupDaemonThreads>false</cleanupDaemonThreads>
         </configuration>
       </plugin>
       <plugin>
