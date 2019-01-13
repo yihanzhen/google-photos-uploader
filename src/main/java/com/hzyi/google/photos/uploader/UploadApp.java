@@ -4,7 +4,13 @@ import org.apache.commons.cli.CommandLine;
 
 public class UploadApp {
 
-  public UploadApp(CommandLine cl) {}
+  private final CommandLine cl;
 
-  public void run() {}
+  public UploadApp(CommandLine cl) {
+    this.cl = cl;
+  }
+
+  public void run() {
+    
+  }
 }
