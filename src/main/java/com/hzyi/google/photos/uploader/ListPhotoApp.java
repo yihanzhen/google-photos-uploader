@@ -1,4 +1,4 @@
-gitpackage com.hzyi.google.photos.uploader;
+package com.hzyi.google.photos.uploader;
 
 import com.google.common.base.Preconditions;
 import org.apache.commons.cli.CommandLine;
