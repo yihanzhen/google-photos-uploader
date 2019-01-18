@@ -67,7 +67,7 @@ public class UploadApp {
               .collect(Collectors.toList());
       Album album = getAlbumByName(client, albumName);
       BatchCreateMediaItemsResponse response =
-          client.batchCreateMediaItems(album.getTitle(), newMediaItems);
+          client.batchCreateMediaItems(album.getId(), newMediaItems);
     } catch (IOException e) {
       throw new RuntimeException("Unable to create photos client due to: " + e.getCause());
     }

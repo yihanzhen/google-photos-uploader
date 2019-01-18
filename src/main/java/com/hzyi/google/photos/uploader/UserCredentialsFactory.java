@@ -26,7 +26,7 @@ class UserCredentialsFactory {
   private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
   private static final LocalServerReceiver RECEIVER = new LocalServerReceiver();
   private static final List<String> SCOPES =
-      ImmutableList.of("https://www.googleapis.com/auth/photoslibrary.readonly");
+      ImmutableList.of("https://www.googleapis.com/auth/photoslibrary");
   private static final String OPTION_DEBUG_SHORT_NAME = "d";
   private static final String CREDENTIALS_PATH =
       "/Users/hanzhenyi/.google-photos-uploader/credentials/client-credentials.json";
