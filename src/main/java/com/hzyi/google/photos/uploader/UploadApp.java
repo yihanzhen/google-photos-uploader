@@ -31,7 +31,7 @@ public class UploadApp implements App<UploadAppConfig> {
     if (config.debug()) {
       runDebug(workingDir, mediaItems, albumName);
     } else {
-      runActually(workingDir, mediaItems, albumName);
+      runActually(config, workingDir, mediaItems, albumName);
     }
   }
 
@@ -42,7 +42,8 @@ public class UploadApp implements App<UploadAppConfig> {
     System.out.println("uploading them to album: " + albumName);
   }
 
-  private void runActually(Path workingDir, List<Path> mediaItems, String albumName) {
+  private void runActually(
+      UploadAppConfig config, Path workingDir, List<Path> mediaItems, String albumName) {
     try (PhotosLibraryClient client = GooglePhotosClientFactory.createClient()) {
       List<NewMediaItem> newMediaItems =
           mediaItems
@@ -51,7 +52,7 @@ public class UploadApp implements App<UploadAppConfig> {
               .filter(Objects::nonNull)
               .map(NewMediaItemFactory::createNewMediaItem)
               .collect(Collectors.toList());
-      Album album = getAlbumByName(client, albumName);
+      Album album = getAlbumByName(client, albumName, config.append());
       BatchCreateMediaItemsResponse response =
           client.batchCreateMediaItems(album.getId(), newMediaItems);
     } catch (IOException e) {
@@ -59,16 +60,15 @@ public class UploadApp implements App<UploadAppConfig> {
     }
   }
 
-  private Album getAlbumByName(PhotosLibraryClient client, String name) {
+  private Album getAlbumByName(PhotosLibraryClient client, String name, boolean append) {
     List<Album> albums =
         Lists.newArrayList(client.listAlbums().iterateAll())
             .stream()
             .filter(a -> a.getTitle().equals(name))
             .collect(Collectors.toList());
     Preconditions.checkArgument(albums.size() <= 1, "multiple albums found.");
-    if (albums.size() == 0) {
-      return client.createAlbum(Album.newBuilder().setTitle(name).build());
-    }
+    Preconditions.checkArgument(
+        append || albums.isEmpty(), "album %s already exists, specify -ap to add to this album.");
     return albums.get(0);
   }
 

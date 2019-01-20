@@ -10,17 +10,17 @@ public abstract class UploadAppConfig implements AppConfig {
     return "UploadApp";
   }
 
-  public abstract boolean debug();
+  public abstract boolean debug(); // runDebugMode
 
-  public abstract boolean all();
+  public abstract boolean all(); // uploadAllPhotosInDirectory
 
-  public abstract boolean append();
+  public abstract boolean append(); // appendPhotosToExistingAlbum
 
-  public abstract String album();
+  public abstract String album(); // albumName
 
-  public abstract String directory();
+  public abstract String directory(); // directoryName
 
-  public abstract String file();
+  public abstract String file(); // fileName
 
   public abstract String location();
 
