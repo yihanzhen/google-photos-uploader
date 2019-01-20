@@ -1,4 +1,4 @@
-package com.hzyi.google.photos.uploader;
+package com.hzyi.google.photos.uploader.util;
 
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
@@ -18,7 +18,7 @@ import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
 import java.util.List;
 
-class UserCredentialsFactory {
+public class UserCredentialsFactory {
 
   private static final File DATA_STORE_DIR =
       new File(System.getProperty("user.home"), "./google-photos-uploader/store");

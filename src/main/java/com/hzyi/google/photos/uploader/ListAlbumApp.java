@@ -2,19 +2,14 @@ package com.hzyi.google.photos.uploader;
 
 import com.google.photos.library.v1.PhotosLibraryClient;
 import com.google.photos.library.v1.proto.Album;
+import com.hzyi.google.photos.uploader.util.GooglePhotosClientFactory;
 import java.io.IOException;
-import org.apache.commons.cli.CommandLine;
 
-public class ListAlbumApp extends BaseApp {
+public class ListAlbumApp implements App<ListAlbumAppConfig> {
 
-  private static final String OPTION_DEBUG_SHORT_NAME = "d";
-
-  public ListAlbumApp(CommandLine cl) {
-    super(cl);
-  }
-
-  public void run() {
-    if (debug) {
+  @Override
+  public void run(ListAlbumAppConfig config) {
+    if (config.debug()) {
       System.out.println("listing albums");
     } else {
       try (PhotosLibraryClient client = GooglePhotosClientFactory.createClient()) {

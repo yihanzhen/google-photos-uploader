@@ -120,7 +120,7 @@ public class UploaderMain {
     options.addOption(OPTION_UPLOAD_TIME);
 
     CommandLine cl = (new DefaultParser()).parse(options, args);
-    new UploadApp(cl).run();
+    new UploadApp().run(UploadAppConfig.fromCommandLine(cl));
   }
 
   private static void listMain(String[] args) throws Exception {
@@ -129,11 +129,7 @@ public class UploaderMain {
     String obj = args[1];
     if (OBJECT_LIST_ALBUM.equals(obj)) {
       CommandLine cl = (new DefaultParser()).parse(options, args);
-      new ListAlbumApp(cl).run();
-    } else if (OBJECT_LIST_PHOTO.equals(obj)) {
-      options.addOption(OPTION_LIST_PHOTO_ALBUM);
-      CommandLine cl = (new DefaultParser()).parse(options, args);
-      new ListPhotoApp(cl).run();
+      new ListAlbumApp().run(ListAlbumAppConfig.fromCommandLine(cl));
     } else {
       System.err.println("invalid object [" + args[1] + "] for goal [" + args[0] + "]!");
       System.exit(1);
