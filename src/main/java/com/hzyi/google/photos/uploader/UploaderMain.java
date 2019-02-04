@@ -9,6 +9,7 @@ public class UploaderMain {
 
   private static final String GOAL_UPLOAD = "upload";
   private static final String GOAL_LIST = "list";
+  private static final String GOAL_SANITIZE = "sanitize";
 
   private static final String OBJECT_LIST_ALBUM = "album";
   private static final String OBJECT_LIST_PHOTO = "photo";
@@ -102,6 +103,8 @@ public class UploaderMain {
       uploadMain(args);
     } else if (GOAL_LIST.equals(goal)) {
       listMain(args);
+    } else if (GOAL_SANITIZE.equals(goal)) {
+      sanitizeMain(args);
     } else {
       System.err.println("invalid goal [" + goal + "]!");
       System.exit(1);
@@ -134,5 +137,10 @@ public class UploaderMain {
       System.err.println("invalid object [" + args[1] + "] for goal [" + args[0] + "]!");
       System.exit(1);
     }
+  }
+
+  private static void sanitizeMain(String[] args) throws Exception {
+    CommandLine cl = (new DefaultParser()).parse(SanitizeOptions.SANITIZE_OPTIONS, args);
+    new SanitizeApp().run(SanitizeAppConfig.fromCommandLine(cl));
   }
 }
