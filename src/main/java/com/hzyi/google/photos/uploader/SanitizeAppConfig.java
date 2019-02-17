@@ -36,7 +36,7 @@ abstract class SanitizeAppConfig implements AppConfig {
   }
 
   public static SanitizeAppConfig.Builder newBuilder() {
-    return new AutoValue_SanitizeAppConfig.Builder();
+    return new AutoValue_SanitizeAppConfig.Builder().debug(false).recursive(false).force(false);
   }
 
   @AutoValue.Builder

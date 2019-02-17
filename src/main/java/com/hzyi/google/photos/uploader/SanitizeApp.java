@@ -128,7 +128,7 @@ public class SanitizeApp implements App<SanitizeAppConfig> {
     for (String dir : paths) {
       try {
         if (recursive) {
-          files = Stream.concat(files, Files.walk(Paths.get(dir)));
+          files = Stream.concat(files, Files.walk(Paths.get(dir)).filter(Files::isRegularFile));
         } else {
           files = Stream.concat(files, Files.list(Paths.get(dir)).filter(Files::isRegularFile));
         }
