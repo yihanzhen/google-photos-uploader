@@ -60,6 +60,16 @@ public class UploadApp implements App<UploadAppConfig> {
     }
   }
 
+  /**
+   * Default album name will be derived according to the following strategy:
+   *
+   * <ul>
+   *   <li>if a directory is specified, use the name of the directory plus whatever prefix given by
+   *       -l and -t
+   *   <li>if a directory is not specified, use the system time to create a timestamp as the album
+   *       name, plus whatever prefix given by -l and -t
+   * </ul>
+   */
   private Album getAlbumByName(PhotosLibraryClient client, String name, boolean append) {
     List<Album> albums =
         Lists.newArrayList(client.listAlbums().iterateAll())

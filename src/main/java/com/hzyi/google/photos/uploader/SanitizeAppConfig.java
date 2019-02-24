@@ -15,8 +15,6 @@ abstract class SanitizeAppConfig implements AppConfig {
 
   public abstract boolean recursive();
 
-  public abstract boolean force();
-
   public abstract ImmutableList<String> directories();
 
   public abstract ImmutableList<String> processedDirectories();
@@ -27,7 +25,6 @@ abstract class SanitizeAppConfig implements AppConfig {
     return new AutoValue_SanitizeAppConfig.Builder()
         .debug(cl.hasOption(SanitizeOptions.DEBUG.getOpt()))
         .recursive(cl.hasOption(SanitizeOptions.RECURSIVE.getOpt()))
-        .force(cl.hasOption(SanitizeOptions.FORCE.getOpt()))
         .directories(ImmutableList.copyOf(cl.getOptionValues(SanitizeOptions.DIRECTORY.getOpt())))
         .processedDirectories(
             ImmutableList.copyOf(cl.getOptionValues(SanitizeOptions.PROCESSED_DIRECTORY.getOpt())))
@@ -36,7 +33,7 @@ abstract class SanitizeAppConfig implements AppConfig {
   }
 
   public static SanitizeAppConfig.Builder newBuilder() {
-    return new AutoValue_SanitizeAppConfig.Builder().debug(false).recursive(false).force(false);
+    return new AutoValue_SanitizeAppConfig.Builder().debug(false).recursive(false);
   }
 
   @AutoValue.Builder
@@ -44,8 +41,6 @@ abstract class SanitizeAppConfig implements AppConfig {
     public abstract Builder debug(boolean val);
 
     public abstract Builder recursive(boolean val);
-
-    public abstract Builder force(boolean val);
 
     public abstract Builder directories(ImmutableList<String> val);
 

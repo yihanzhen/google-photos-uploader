@@ -24,14 +24,6 @@ final class SanitizeOptions {
           .desc("detect photos recursively")
           .build();
 
-  static final Option FORCE =
-      Option.builder("f")
-          .longOpt("force")
-          .hasArg(false)
-          .required(false)
-          .desc("delete unwanted photos rather than moving them to trash")
-          .build();
-
   static final Option DIRECTORY =
       Option.builder("dir")
           .longOpt("directory")
@@ -60,7 +52,6 @@ final class SanitizeOptions {
       new Options()
           .addOption(DEBUG)
           .addOption(RECURSIVE)
-          .addOption(FORCE)
           .addOption(DIRECTORY)
           .addOption(PROCESSED_DIRECTORY)
           .addOption(DESTINATION_DIRECTORY);

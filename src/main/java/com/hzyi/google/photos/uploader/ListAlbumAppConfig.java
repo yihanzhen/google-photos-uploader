@@ -15,7 +15,7 @@ public abstract class ListAlbumAppConfig implements AppConfig {
 
   public static ListAlbumAppConfig fromCommandLine(CommandLine cl) {
     return new AutoValue_ListAlbumAppConfig.Builder()
-        .debug(cl.hasOption(UploaderMain.OPTION_DEBUG.getOpt()))
+        .debug(cl.hasOption(ListAlbumOptions.DEBUG.getOpt()))
         .build();
   }
 

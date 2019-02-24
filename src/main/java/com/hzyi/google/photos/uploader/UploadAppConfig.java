@@ -20,6 +20,7 @@ public abstract class UploadAppConfig implements AppConfig {
 
   public abstract String directory(); // directoryName
 
+  // TODO: support files
   public abstract String file(); // fileName
 
   public abstract String location();
@@ -28,13 +29,13 @@ public abstract class UploadAppConfig implements AppConfig {
 
   public static UploadAppConfig fromCommandLine(CommandLine cl) {
     return new AutoValue_UploadAppConfig(
-        cl.hasOption(UploaderMain.OPTION_DEBUG.getOpt()),
-        cl.hasOption(UploaderMain.OPTION_UPLOAD_ALL.getOpt()),
-        cl.hasOption(UploaderMain.OPTION_UPLOAD_APPEND.getOpt()),
-        cl.getOptionValue(UploaderMain.OPTION_UPLOAD_ALBUM.getOpt()),
-        cl.getOptionValue(UploaderMain.OPTION_UPLOAD_DIRECTORY.getOpt()),
-        cl.getOptionValue(UploaderMain.OPTION_UPLOAD_FILE.getOpt()),
-        cl.getOptionValue(UploaderMain.OPTION_UPLOAD_LOCATION.getOpt()),
-        cl.getOptionValue(UploaderMain.OPTION_UPLOAD_TIME.getOpt()));
+        cl.hasOption(UploadOptions.DEBUG.getOpt()),
+        cl.hasOption(UploadOptions.ALL.getOpt()),
+        cl.hasOption(UploadOptions.APPEND.getOpt()),
+        cl.getOptionValue(UploadOptions.ALBUM.getOpt()),
+        cl.getOptionValue(UploadOptions.DIRECTORY.getOpt()),
+        cl.getOptionValue(UploadOptions.FILE.getOpt()),
+        cl.getOptionValue(UploadOptions.LOCATION.getOpt()),
+        cl.getOptionValue(UploadOptions.TIME.getOpt()));
   }
 }
