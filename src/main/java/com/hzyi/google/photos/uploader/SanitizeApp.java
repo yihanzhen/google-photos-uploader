@@ -46,6 +46,7 @@ public class SanitizeApp implements App<SanitizeAppConfig> {
                     p,
                     raws));
     photos(config.processedDirectories(), config.recursive())
+        .filter(SanitizeApp::isJpeg)
         .forEach(
             p ->
                 addToMap(

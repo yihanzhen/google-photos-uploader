@@ -1,6 +1,7 @@
 package com.hzyi.google.photos.uploader;
 
 import com.google.auto.value.AutoValue;
+import javax.annotation.Nullable;
 import org.apache.commons.cli.CommandLine;
 
 @AutoValue
@@ -21,6 +22,7 @@ public abstract class UploadAppConfig implements AppConfig {
   public abstract String directory(); // directoryName
 
   // TODO: support files
+  @Nullable
   public abstract String file(); // fileName
 
   public abstract String location();
