@@ -24,19 +24,19 @@ if [ "${?}" -ne 0 ]; then
 fi
 
 # upload
-java -cp "${jarname}" "${mainclass}" upload -a -dir "${destdir}/original/jpeg/" -ab original -t "${time}" -l "${location}"
+java -cp "${jarname}" "${mainclass}" upload -a -dir "${destdir}original/jpeg/" -ab original -t "${time}" -l "${location}"
 if [ "${?}" -ne 0 ]; then
   echo "upload original failed"
   exit 1
 fi
 
-java -cp "${jarname}" "${mainclass}" upload -a -dir "${destdir}/processed/jpeg/" -ab processed -t "${time}" -l "${location}"
+java -cp "${jarname}" "${mainclass}" upload -a -dir "${destdir}edited/jpeg/" -ab processed -t "${time}" -l "${location}"
 if [ "${?}" -ne 0 ]; then
   echo "upload processed failed"
   exit 1
 fi
 
-java -cp "${jarname}" "${mainclass}" upload -a -dir "${destdir}/processed/raw/" -ab raw -t "${time}" -l "${location}"
+java -cp "${jarname}" "${mainclass}" upload -a -dir "${destdir}edited/raw/" -ab raw -t "${time}" -l "${location}"
 if [ "${?}" -ne 0 ]; then
   echo "upload raw failed"
   exit 1

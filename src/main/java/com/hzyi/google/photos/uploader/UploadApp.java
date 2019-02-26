@@ -52,6 +52,10 @@ public class UploadApp implements App<UploadAppConfig> {
               .filter(Objects::nonNull)
               .map(NewMediaItemFactory::createNewMediaItem)
               .collect(Collectors.toList());
+      if (newMediaItems.isEmpty()) {
+        System.out.println("no media items found.");
+        return;
+      }
       Album album = getAlbumByName(client, albumName, config.append());
       BatchCreateMediaItemsResponse response =
           client.batchCreateMediaItems(album.getId(), newMediaItems);
@@ -79,6 +83,9 @@ public class UploadApp implements App<UploadAppConfig> {
     Preconditions.checkArgument(albums.size() <= 1, "multiple albums found.");
     Preconditions.checkArgument(
         append || albums.isEmpty(), "album %s already exists, specify -ap to add to this album.");
+    if (albums.isEmpty()) {
+      return client.createAlbum(name);
+    }
     return albums.get(0);
   }
 
