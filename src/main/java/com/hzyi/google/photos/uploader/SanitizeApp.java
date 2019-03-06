@@ -5,12 +5,14 @@ import static com.google.common.io.Files.getNameWithoutExtension;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableSet;
+import com.hzyi.google.photos.uploader.util.LoggerFactory;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 public class SanitizeApp implements App<SanitizeAppConfig> {
@@ -26,7 +28,10 @@ public class SanitizeApp implements App<SanitizeAppConfig> {
   // unable to handle this situation for now
   private final HashMap<String, Path> processed = new HashMap<>();
 
+  private final Logger logger = LoggerFactory.getLogger(this);
+
   public void run(SanitizeAppConfig config) {
+    logger.info("Sanitize local photo files");
     photos(config.directories(), config.recursive())
         .filter(SanitizeApp::isJpeg)
         .forEach(
@@ -112,8 +117,8 @@ public class SanitizeApp implements App<SanitizeAppConfig> {
   private void copy(Path from, Path toDir, boolean debug) {
     Path to = toDir.resolve(from.getFileName().toString());
     if (debug) {
-      System.out.printf("Copying file: \"%s\"\n", from);
-      System.out.printf("to \"%s\"\n", to);
+      logger.info("[debugging mode] copying file: \"" + from + "\"\n");
+      logger.info("to \"" + to + "\"\n");
       return;
     }
     try {

@@ -12,6 +12,7 @@ import com.google.photos.library.v1.upload.UploadMediaItemRequest;
 import com.google.photos.library.v1.upload.UploadMediaItemResponse;
 import com.google.photos.library.v1.util.NewMediaItemFactory;
 import com.hzyi.google.photos.uploader.util.GooglePhotosClientFactory;
+import com.hzyi.google.photos.uploader.util.LoggerFactory;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -20,9 +21,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class UploadApp implements App<UploadAppConfig> {
+
+  private final Logger logger = LoggerFactory.getLogger(this);
 
   public void run(UploadAppConfig config) {
     Path workingDir = getWorkingDirectory(config);
@@ -36,10 +40,13 @@ public class UploadApp implements App<UploadAppConfig> {
   }
 
   private void runDebug(Path workingDir, List<Path> mediaItems, String albumName) {
-    System.out.println("in working directory: " + workingDir);
-    System.out.printf("getting %d media items with the following names:\n", mediaItems.size());
-    mediaItems.forEach(m -> System.out.println(m.getFileName().toString()));
-    System.out.println("uploading them to album: " + albumName);
+    logger.info("[debugging mode] in working directory: " + workingDir);
+    logger.info(
+        "[debugging mode] getting "
+            + mediaItems.size()
+            + " media items with the following names:\n");
+    mediaItems.forEach(m -> logger.info("[debugging mode] " + m.getFileName().toString()));
+    logger.info("[debugging mode] uploading them to album: " + albumName);
   }
 
   private void runActually(
@@ -53,14 +60,14 @@ public class UploadApp implements App<UploadAppConfig> {
               .map(NewMediaItemFactory::createNewMediaItem)
               .collect(Collectors.toList());
       if (newMediaItems.isEmpty()) {
-        System.out.println("no media items found.");
+        logger.info("no media items found.");
         return;
       }
       Album album = getAlbumByName(client, albumName, config.append());
       BatchCreateMediaItemsResponse response =
           client.batchCreateMediaItems(album.getId(), newMediaItems);
     } catch (IOException e) {
-      throw new RuntimeException("Unable to create photos client due to: " + e.getCause());
+      throw new IllegalStateException("Unable to create photos client due to: " + e.getCause());
     }
   }
 
@@ -148,17 +155,17 @@ public class UploadApp implements App<UploadAppConfig> {
       UploadMediaItemResponse response = client.uploadMediaItem(request);
       if (response.getError().isPresent()) {
         UploadMediaItemResponse.Error error = response.getError().get();
-        System.out.println("Unable to upload file to google photos: " + file);
-        System.out.println("The reason is: " + error.getCause());
-        System.out.println("Skipping this file.");
+        logger.info("Unable to upload file to google photos: " + file);
+        logger.info("The reason is: " + error.getCause());
+        logger.info("Skipping this file.");
         return null;
       } else {
         return response.getUploadToken().get();
       }
     } catch (ApiException | FileNotFoundException e) {
-      System.out.println("Unable to upload file to google photos: " + file);
-      System.out.println("The reason is: " + e);
-      System.out.println("Skipping this file.");
+      logger.info("Unable to upload file to google photos: " + file);
+      logger.info("The reason is: " + e);
+      logger.info("Skipping this file.");
     }
     return null;
   }
